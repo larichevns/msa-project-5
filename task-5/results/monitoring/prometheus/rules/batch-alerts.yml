@@ -1,0 +1,80 @@
+groups:
+  - name: spring_batch_alerts
+    interval: 30s
+    rules:
+      # Job failure alert
+      - alert: SpringBatchJobFailed
+        expr: increase(spring_batch_job_failed_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          component: spring-batch
+        annotations:
+          summary: "Spring Batch job failed"
+          description: "Job {{ $labels.job_name }} has failed. Instance: {{ $labels.instance }}"
+
+      # High processing time alert
+      - alert: SpringBatchHighProcessingTime
+        expr: rate(spring_batch_job_duration_seconds_sum[5m]) / rate(spring_batch_job_duration_seconds_count[5m]) > 60
+        for: 5m
+        labels:
+          severity: warning
+          component: spring-batch
+        annotations:
+          summary: "Spring Batch job taking too long"
+          description: "Average job processing time is {{ $value | humanizeDuration }} on {{ $labels.instance }}"
+
+      # High error rate alert
+      - alert: SpringBatchHighErrorRate
+        expr: rate(batch_processing_errors_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+          component: spring-batch
+        annotations:
+          summary: "High error rate in batch processing"
+          description: "Error rate is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+
+      # Database connection pool exhaustion
+      - alert: DatabaseConnectionPoolExhausted
+        expr: hikaricp_connections_pending > 5
+        for: 2m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "Database connection pool is exhausted"
+          description: "{{ $value }} connections are pending on {{ $labels.instance }}"
+
+      # Application down alert
+      - alert: SpringBatchApplicationDown
+        expr: up{job="spring-batch-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: spring-batch
+        annotations:
+          summary: "Spring Batch application is down"
+          description: "Spring Batch application {{ $labels.instance }} is down"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"}) > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: jvm
+        annotations:
+          summary: "JVM heap memory usage is high"
+          description: "Heap memory usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+
+      # Too many skipped items
+      - alert: TooManySkippedItems
+        expr: rate(spring_batch_step_skip_count_total[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          component: spring-batch
+        annotations:
+          summary: "Too many items are being skipped"
+          description: "Skip rate is {{ $value }} items/sec in step {{ $labels.step_name }} on {{ $labels.instance }}"

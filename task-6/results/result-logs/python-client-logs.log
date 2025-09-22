@@ -1,0 +1,18 @@
+2025-09-22 17:38:29,925 - __main__ - INFO - [deebeca25a6c43b7] - Checking API health. URL: http://localhost:8081/api/jobs/status
+2025-09-22 17:38:29,930 - __main__ - ERROR - [deebeca25a6c43b7] - Health check failed: HTTPConnectionPool(host='localhost', port=8081): Max retries exceeded with url: /api/jobs/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10a7db8c0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-09-22 17:40:51,051 - __main__ - INFO - [4c7826648c144874] - Checking API health. URL: http://localhost:8081/api/jobs/status
+2025-09-22 17:40:51,056 - __main__ - ERROR - [4c7826648c144874] - Health check failed: HTTPConnectionPool(host='localhost', port=8081): Max retries exceeded with url: /api/jobs/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108a9b8c0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-09-22 17:41:01,370 - __main__ - INFO - [28f1645f851d41c5] - Checking API health. URL: http://localhost:8082/api/jobs/status
+2025-09-22 17:41:01,392 - __main__ - INFO - [28f1645f851d41c5] - Health check response: healthy
+2025-09-22 17:41:01,392 - __main__ - INFO - [c714cf2509404e71] - Triggering Spring Batch job. URL: http://localhost:8082/api/jobs/trigger, TraceId: c714cf2509404e71, SpanId: 211cd541
+2025-09-22 17:41:01,435 - __main__ - INFO - [c714cf2509404e71] - API response received. Status: 200, Duration: 0.04s
+2025-09-22 17:41:01,435 - __main__ - INFO - [c714cf2509404e71] - Server trace correlation: ClientTrace=c714cf2509404e71, ServerTrace=68d151ed2fc8441f2972640ff931f58d
+2025-09-22 17:41:01,435 - __main__ - INFO - [c714cf2509404e71] - Spring Batch job triggered successfully. JobExecutionId: 2
+2025-09-22 17:41:06,437 - __main__ - INFO - [f93f8959fb154376] - Triggering Spring Batch job. URL: http://localhost:8082/api/jobs/trigger, TraceId: f93f8959fb154376, SpanId: 783df4c8
+2025-09-22 17:41:06,496 - __main__ - INFO - [f93f8959fb154376] - API response received. Status: 200, Duration: 0.06s
+2025-09-22 17:41:06,497 - __main__ - INFO - [f93f8959fb154376] - Server trace correlation: ClientTrace=f93f8959fb154376, ServerTrace=68d151f2f62696def3a8844ff73c7beb
+2025-09-22 17:41:06,497 - __main__ - INFO - [f93f8959fb154376] - Spring Batch job triggered successfully. JobExecutionId: 3
+2025-09-22 17:41:11,502 - __main__ - INFO - [ecd90697736e405d] - Triggering Spring Batch job. URL: http://localhost:8082/api/jobs/trigger, TraceId: ecd90697736e405d, SpanId: c73d1b80
+2025-09-22 17:41:11,554 - __main__ - INFO - [ecd90697736e405d] - API response received. Status: 200, Duration: 0.05s
+2025-09-22 17:41:11,554 - __main__ - INFO - [ecd90697736e405d] - Server trace correlation: ClientTrace=ecd90697736e405d, ServerTrace=68d151f79d2e8a4f6a834b678f3bf032
+2025-09-22 17:41:11,554 - __main__ - INFO - [ecd90697736e405d] - Spring Batch job triggered successfully. JobExecutionId: 4

@@ -1,0 +1,108 @@
+{
+    "status": "success",
+    "data": {
+        "activeTargets": [
+            {
+                "discoveredLabels": {
+                    "__address__": "cadvisor:8080",
+                    "__metrics_path__": "/metrics",
+                    "__scheme__": "http",
+                    "__scrape_interval__": "15s",
+                    "__scrape_timeout__": "10s",
+                    "job": "cadvisor",
+                    "service": "cadvisor"
+                },
+                "labels": {
+                    "instance": "cadvisor:8080",
+                    "job": "cadvisor",
+                    "service": "cadvisor"
+                },
+                "scrapePool": "cadvisor",
+                "scrapeUrl": "http://cadvisor:8080/metrics",
+                "globalUrl": "http://cadvisor:8080/metrics",
+                "lastError": "Get \"http://cadvisor:8080/metrics\": dial tcp: lookup cadvisor on 127.0.0.11:53: no such host",
+                "lastScrape": "2025-09-22T08:04:32.558475841Z",
+                "lastScrapeDuration": 0.004035583,
+                "health": "down",
+                "scrapeInterval": "15s",
+                "scrapeTimeout": "10s"
+            },
+            {
+                "discoveredLabels": {
+                    "__address__": "postgres-exporter:9187",
+                    "__metrics_path__": "/metrics",
+                    "__scheme__": "http",
+                    "__scrape_interval__": "15s",
+                    "__scrape_timeout__": "10s",
+                    "database": "productsdb",
+                    "job": "postgresql"
+                },
+                "labels": {
+                    "database": "productsdb",
+                    "instance": "postgres-exporter:9187",
+                    "job": "postgresql"
+                },
+                "scrapePool": "postgresql",
+                "scrapeUrl": "http://postgres-exporter:9187/metrics",
+                "globalUrl": "http://postgres-exporter:9187/metrics",
+                "lastError": "Get \"http://postgres-exporter:9187/metrics\": dial tcp: lookup postgres-exporter on 127.0.0.11:53: no such host",
+                "lastScrape": "2025-09-22T08:04:32.183283633Z",
+                "lastScrapeDuration": 0.010767709,
+                "health": "down",
+                "scrapeInterval": "15s",
+                "scrapeTimeout": "10s"
+            },
+            {
+                "discoveredLabels": {
+                    "__address__": "localhost:9090",
+                    "__metrics_path__": "/metrics",
+                    "__scheme__": "http",
+                    "__scrape_interval__": "15s",
+                    "__scrape_timeout__": "10s",
+                    "job": "prometheus"
+                },
+                "labels": {
+                    "instance": "localhost:9090",
+                    "job": "prometheus"
+                },
+                "scrapePool": "prometheus",
+                "scrapeUrl": "http://localhost:9090/metrics",
+                "globalUrl": "http://72ef8dbfa1ed:9090/metrics",
+                "lastError": "",
+                "lastScrape": "2025-09-22T08:04:35.319704294Z",
+                "lastScrapeDuration": 0.006498542,
+                "health": "up",
+                "scrapeInterval": "15s",
+                "scrapeTimeout": "10s"
+            },
+            {
+                "discoveredLabels": {
+                    "__address__": "app:8080",
+                    "__metrics_path__": "/actuator/prometheus",
+                    "__scheme__": "http",
+                    "__scrape_interval__": "10s",
+                    "__scrape_timeout__": "10s",
+                    "application": "spring-batch-etl",
+                    "environment": "production",
+                    "job": "spring-batch-app"
+                },
+                "labels": {
+                    "application": "spring-batch-etl",
+                    "environment": "production",
+                    "instance": "app:8080",
+                    "job": "spring-batch-app"
+                },
+                "scrapePool": "spring-batch-app",
+                "scrapeUrl": "http://app:8080/actuator/prometheus",
+                "globalUrl": "http://app:8080/actuator/prometheus",
+                "lastError": "Get \"http://app:8080/actuator/prometheus\": dial tcp: lookup app on 127.0.0.11:53: no such host",
+                "lastScrape": "2025-09-22T08:04:32.863689128Z",
+                "lastScrapeDuration": 0.008926416,
+                "health": "down",
+                "scrapeInterval": "10s",
+                "scrapeTimeout": "10s"
+            }
+        ],
+        "droppedTargets": []
+    }
+}
