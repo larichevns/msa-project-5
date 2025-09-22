@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: data-export-config
+  namespace: default
+data:
+  DB_HOST: "postgres-service.default.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_NAME: "transportation"
+  S3_ENDPOINT: "http://minio-service.default.svc.cluster.local:9000"
+  S3_BUCKET: "analytics-data"

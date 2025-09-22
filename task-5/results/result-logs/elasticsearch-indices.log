@@ -1,0 +1,2 @@
+health status index                          uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .monitoring-beats-7-2025.09.22 IiUQTLdISLuW3af8HL9FVg   1   0        107            0    419.3kb        419.3kb

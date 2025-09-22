@@ -1,0 +1,10 @@
+{
+  "traceId": "68d15332d532fcc565ff1b543a5f7bf5",
+  "spanId": "65ff1b543a5f7bf5",
+  "jobExecutionId": 6,
+  "method": "POST",
+  "message": "Job triggered successfully",
+  "uri": "/api/jobs/trigger",
+  "status": "success",
+  "timestamp": 1758548786092
+}

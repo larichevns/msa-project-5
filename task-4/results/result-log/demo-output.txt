@@ -1,0 +1,119 @@
+==========================================
+   SPRING BATCH ETL DEMO для TradeWare   
+==========================================
+
+Дата запуска: Mon Sep 22 11:15:13 +04 2025
+
+📦 Step 1: Проверка Docker контейнеров...
+------------------------------------------
+time="2025-09-22T11:15:13+04:00" level=warning msg="/Users/larichevns/Documents/Dev/YandexMicroservices/msa-project-5/task-4/results/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+NAME                          IMAGE                  COMMAND                  SERVICE             CREATED        STATUS                            PORTS
+results-airflow-scheduler-1   apache/airflow:2.7.3   "/usr/bin/dumb-init …"   airflow-scheduler   18 hours ago   Up 2 seconds (health: starting)   8080/tcp
+results-airflow-webserver-1   apache/airflow:2.7.3   "/usr/bin/dumb-init …"   airflow-webserver   18 hours ago   Up 2 seconds (health: starting)   0.0.0.0:8080->8080/tcp
+results-minio-1               minio/minio:latest     "/usr/bin/docker-ent…"   minio               18 hours ago   Up 18 hours (healthy)             0.0.0.0:9000-9001->9000-9001/tcp
+results-postgres-1            postgres:15-alpine     "docker-entrypoint.s…"   postgres            18 hours ago   Up 18 hours (healthy)             0.0.0.0:5434->5432/tcp
+results-postgres-data-1       postgres:13            "docker-entrypoint.s…"   postgres-data       18 hours ago   Up 18 hours (healthy)             5432/tcp, 0.0.0.0:5433->5433/tcp
+results-postgresdb-1          postgres               "docker-entrypoint.s…"   postgresdb          17 hours ago   Up 17 hours                       0.0.0.0:5435->5432/tcp
+
+📊 Step 2: Исходные данные программы лояльности...
+---------------------------------------------------
+ productsku | loyalitydata 
+------------+--------------
+      20001 | Loyality_on
+      30001 | Loyality_on
+      50001 | Loyality_on
+      60001 | Loyality_on
+(4 rows)
+
+
+📊 Step 3: Проверка таблицы products ДО запуска ETL...
+-------------------------------------------------------
+ count_before 
+--------------
+            5
+(1 row)
+
+
+⚡ Step 4: Запуск Spring Batch ETL...
+--------------------------------------
+Обработка продуктов из CSV файла...
+time="2025-09-22T11:15:13+04:00" level=warning msg="/Users/larichevns/Documents/Dev/YandexMicroservices/msa-project-5/task-4/results/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+time="2025-09-22T11:15:13+04:00" level=warning msg="Found orphan containers ([results-data-exporter-1 results-postgres-1 results-minio-1 results-airflow-webserver-1 results-airflow-scheduler-1 results-airflow-init-1 results-postgres-data-1]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container results-postgresdb-1  Running
+ Container results-app-1  Created
+Attaching to app-1
+app-1  | 
+app-1  |   .   ____          _            __ _ _
+app-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+app-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+app-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+app-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+app-1  |  =========|_|==============|___/=/_/_/_/
+app-1  | 
+app-1  |  :: Spring Boot ::                (v3.5.3)
+app-1  | 
+app-1  | 2025-09-22T07:15:13.885Z  INFO 1 --- [           main] c.e.b.BatchProcessingApplication         : Starting BatchProcessingApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/app.jar started by root in /app)
+app-1  | 2025-09-22T07:15:13.886Z  INFO 1 --- [           main] c.e.b.BatchProcessingApplication         : No active profile set, falling back to 1 default profile: "default"
+app-1  | 2025-09-22T07:15:14.126Z  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+app-1  | 2025-09-22T07:15:14.276Z  INFO 1 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@17b64941
+app-1  | 2025-09-22T07:15:14.277Z  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+app-1  | 2025-09-22T07:15:14.437Z  INFO 1 --- [           main] c.e.b.BatchProcessingApplication         : Started BatchProcessingApplication in 0.69 seconds (process running for 0.887)
+app-1  | 2025-09-22T07:15:14.438Z  INFO 1 --- [           main] o.s.b.a.b.JobLauncherApplicationRunner   : Running default command line with: []
+app-1  | 2025-09-22T07:15:14.464Z  INFO 1 --- [           main] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=importProductJob]] launched with the following parameters: [{}]
+app-1  | 2025-09-22T07:15:14.476Z  INFO 1 --- [           main] o.s.batch.core.job.SimpleStepHandler     : Step already complete or not restartable, so no action to execute: StepExecution: id=1, version=4, name=step1, status=COMPLETED, exitStatus=COMPLETED, readCount=5, filterCount=0, writeCount=5 readSkipCount=0, writeSkipCount=0, processSkipCount=0, commitCount=2, rollbackCount=0, exitDescription=
+app-1  | 2025-09-22T07:15:14.477Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : !!! JOB FINISHED! Time to verify the results
+app-1  | 2025-09-22T07:15:14.477Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Job execution details:
+app-1  | 2025-09-22T07:15:14.477Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  :   - Job Name: importProductJob
+app-1  | 2025-09-22T07:15:14.477Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  :   - Start Time: 2025-09-22T07:15:14.468161
+app-1  | 2025-09-22T07:15:14.477Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  :   - End Time: 2025-09-22T07:15:14.477450291
+app-1  | 2025-09-22T07:15:14.477Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  :   - Status: COMPLETED
+app-1  | 2025-09-22T07:15:14.477Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  :   - Exit Status: NOOP
+app-1  | 2025-09-22T07:15:14.480Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Found <{Product[productId=1, productSku=20001, productName=hammer, productAmount=45, productData=Loyality_on]}> in the database.
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Found <{Product[productId=2, productSku=30001, productName=sink, productAmount=20, productData=Loyality_on]}> in the database.
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Found <{Product[productId=3, productSku=40001, productName=roof_shell, productAmount=256, productData=Loyality_on]}> in the database.
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Found <{Product[productId=4, productSku=50001, productName=priming, productAmount=67, productData=Loyality_on]}> in the database.
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Found <{Product[productId=5, productSku=60001, productName=clapboard, productAmount=120, productData=Loyality_on]}> in the database.
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Total products in database: 5
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : =======================================================
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : Job completed successfully!
+app-1  | 2025-09-22T07:15:14.482Z  INFO 1 --- [           main] c.e.b.JobCompletionNotificationListener  : =======================================================
+app-1  | 2025-09-22T07:15:14.485Z  INFO 1 --- [           main] o.s.b.c.l.s.TaskExecutorJobLauncher      : Job: [SimpleJob: [name=importProductJob]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 9ms
+app-1  | 2025-09-22T07:15:14.487Z  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+app-1  | 2025-09-22T07:15:14.512Z  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[Kapp-1 exited with code 0
+
+✅ Step 5: Результаты обработки...
+-----------------------------------
+ productid | productsku | productname | productamount | productdata 
+-----------+------------+-------------+---------------+-------------
+         1 |      20001 | hammer      |            45 | Loyality_on
+         2 |      30001 | sink        |            20 | Loyality_on
+         3 |      40001 | roof_shell  |           256 | Loyality_on
+         4 |      50001 | priming     |            67 | Loyality_on
+         5 |      60001 | clapboard   |           120 | Loyality_on
+(5 rows)
+
+
+📈 Step 6: Статус выполнения Job...
+------------------------------------
+ job_execution_id |  status   |         start_time         |          end_time          
+------------------+-----------+----------------------------+----------------------------
+                2 | COMPLETED | 2025-09-22 07:15:14.468161 | 2025-09-22 07:15:14.47745
+                1 | COMPLETED | 2025-09-21 13:59:25.577544 | 2025-09-21 13:59:25.610791
+(2 rows)
+
+
+📊 Step 7: Статистика обработки...
+-----------------------------------
+ total_products | with_loyalty 
+----------------+--------------
+              5 |            5
+(1 row)
+
+
+==========================================
+    ✅ DEMO COMPLETED SUCCESSFULLY!      
+==========================================
+
+Результаты сохранены в: result-log/demo-output.txt
+Дата завершения: Mon Sep 22 11:15:15 +04 2025

@@ -1,0 +1,69 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: data-export-cronjob
+  namespace: default
+spec:
+  # Schedule: Every day at 20:00 (8 PM)
+  schedule: "0 20 * * *"
+
+  # Prevent concurrent runs
+  concurrencyPolicy: Forbid
+
+  # Keep history
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+
+  # Job template
+  jobTemplate:
+    metadata:
+      labels:
+        app: data-exporter
+        type: cronjob
+    spec:
+      # Retry policy
+      backoffLimit: 3
+      activeDeadlineSeconds: 7200  # 2 hours max
+
+      template:
+        metadata:
+          labels:
+            app: data-exporter
+            type: cronjob
+        spec:
+          restartPolicy: OnFailure
+
+          # Service account (optional, for RBAC)
+          # serviceAccountName: data-exporter
+
+          containers:
+          - name: data-exporter
+            image: data-exporter:latest
+            imagePullPolicy: IfNotPresent
+
+            # Resource limits
+            resources:
+              requests:
+                memory: "256Mi"
+                cpu: "250m"
+              limits:
+                memory: "1Gi"
+                cpu: "1000m"
+
+            # Environment variables from ConfigMap
+            envFrom:
+            - configMapRef:
+                name: data-export-config
+            - secretRef:
+                name: data-export-secret
+
+            # Volume mounts for temporary storage
+            volumeMounts:
+            - name: temp-storage
+              mountPath: /tmp
+
+          # Volumes
+          volumes:
+          - name: temp-storage
+            emptyDir:
+              sizeLimit: 5Gi
